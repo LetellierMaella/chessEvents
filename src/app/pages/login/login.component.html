@@ -1,1 +1,62 @@
 <p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+      [ngClass]="{
+        'is-invalid':
+          loginForm.get('email')?.invalid &&
+          (loginForm.get('email')?.touched || submitted),
+        'is-valid': loginForm.get('email')?.valid
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        loginForm.get('email')?.invalid &&
+        (loginForm.get('email')?.touched || submitted)
+      "
+    >
+      <small *ngIf="loginForm.get('email')?.errors?.['required']"
+        >Email requis</small
+      >
+      <small *ngIf="loginForm.get('email')?.errors?.['email']"
+        >Email invalide</small
+      >
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Mot de passe</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+      [ngClass]="{
+        'is-invalid':
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.touched || submitted),
+        'is-valid': loginForm.get('password')?.valid
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        loginForm.get('password')?.invalid &&
+        (loginForm.get('password')?.touched || submitted)
+      "
+    >
+      <small *ngIf="loginForm.get('password')?.errors?.['required']"
+        >Mot de passe requis</small
+      >
+      <small *ngIf="loginForm.get('password')?.errors?.['minlength']"
+        >Le mot de passe doit comporter au minimum 3 caractères.</small
+      >
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
