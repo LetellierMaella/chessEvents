@@ -1,1 +1,37 @@
-<p>profile works!</p>
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="mb-4">Mon profil</h2>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <strong>Prénom :</strong> {{ user?.firstname }}
+      </div>
+      <div class="col-md-6"><strong>Nom :</strong> {{ user?.lastname }}</div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6"><strong>Email :</strong> {{ user?.email }}</div>
+      <div class="col-md-6">
+        <strong>Date de naissance :</strong>
+        {{ user?.birthday | date : "longDate" }}
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <strong>Genre :</strong>
+        {{ user?.gender === "man" ? "Homme" : "Femme" }}
+      </div>
+      <div class="col-md-6">
+        <strong>Rôle :</strong>
+        {{ user?.role === "user" ? "Joueur" : user?.role }}
+      </div>
+    </div>
+
+    <div class="text-end mt-4">
+      <button class="btn btn-outline-secondary me-2" (click)="logout()">
+        Se déconnecter
+      </button>
+    </div>
+  </div>
+</div>

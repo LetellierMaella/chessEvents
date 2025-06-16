@@ -1,48 +1,183 @@
 <form [formGroup]="registerForm" (ngSubmit)="register()">
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <label>Email</label>
-      <input type="email" class="form-control" formControlName="email" />
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label>Mot de passe</label>
-      <input type="password" class="form-control" formControlName="password" />
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label>Prénom</label>
-      <input type="text" class="form-control" formControlName="firstname" />
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label>Nom</label>
-      <input type="text" class="form-control" formControlName="lastname" />
-    </div>
-
-    <div class="mb-3">
-      <label for="gender">Genre</label>
-      <select class="form-select" formControlName="gender" id="gender">
-        <option value="">-- Choisir --</option>
-        <option value="man">Homme</option>
-        <option value="woman">Femme</option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="role">Rôle</label>
-      <select class="form-select" formControlName="role" id="role">
-        <option value="">-- Choisir --</option>
-        <option value="user">Joueur</option>
-        <option value="organiser">Organisateur</option>
-      </select>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label>Date de naissance</label>
-      <input type="date" class="form-control" formControlName="birthday" />
+  <!-- EMAIL -->
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+      [ngClass]="{
+        'is-invalid':
+          registerForm.get('email')?.invalid &&
+          (registerForm.get('email')?.touched || submitted),
+        'is-valid': registerForm.get('email')?.valid
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        registerForm.get('email')?.invalid &&
+        (registerForm.get('email')?.touched || submitted)
+      "
+    >
+      <small *ngIf="registerForm.get('email')?.errors?.['required']"
+        >Email requis</small
+      >
+      <small *ngIf="registerForm.get('email')?.errors?.['email']"
+        >Email invalide</small
+      >
     </div>
   </div>
 
-  <button type="submit" class="btn btn-success mt-3">S'inscrire</button>
+  <!-- PASSWORD -->
+  <div class="mb-3">
+    <label for="password" class="form-label">Mot de passe</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+      [ngClass]="{
+        'is-invalid':
+          registerForm.get('password')?.invalid &&
+          (registerForm.get('password')?.touched || submitted),
+        'is-valid': registerForm.get('password')?.valid
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        registerForm.get('password')?.invalid &&
+        (registerForm.get('password')?.touched || submitted)
+      "
+    >
+      <small *ngIf="registerForm.get('password')?.errors?.['required']"
+        >Mot de passe requis</small
+      >
+      <small *ngIf="registerForm.get('password')?.errors?.['minlength']"
+        >Min. 3 caractères</small
+      >
+    </div>
+  </div>
+
+  <!-- FIRSTNAME -->
+  <div class="mb-3">
+    <label for="firstname" class="form-label">Prénom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="firstname"
+      formControlName="firstname"
+      [ngClass]="{
+        'is-invalid':
+          registerForm.get('firstname')?.invalid &&
+          (registerForm.get('firstname')?.touched || submitted),
+        'is-valid': registerForm.get('firstname')?.valid
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        registerForm.get('firstname')?.invalid &&
+        (registerForm.get('firstname')?.touched || submitted)
+      "
+    >
+      <small>Prénom requis</small>
+    </div>
+  </div>
+
+  <!-- LASTNAME -->
+  <div class="mb-3">
+    <label for="lastname" class="form-label">Nom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lastname"
+      formControlName="lastname"
+      [ngClass]="{
+        'is-invalid':
+          registerForm.get('lastname')?.invalid &&
+          (registerForm.get('lastname')?.touched || submitted),
+        'is-valid': registerForm.get('lastname')?.valid
+      }"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="
+        registerForm.get('lastname')?.invalid &&
+        (registerForm.get('lastname')?.touched || submitted)
+      "
+    >
+      <small>Nom requis</small>
+    </div>
+  </div>
+
+  <!-- GENDER -->
+  <div class="mb-3">
+    <label for="gender" class="form-label">Genre</label>
+    <select
+      class="form-select"
+      id="gender"
+      formControlName="gender"
+      [ngClass]="{
+        'is-invalid':
+          registerForm.get('gender')?.invalid &&
+          (registerForm.get('gender')?.touched || submitted),
+        'is-valid': registerForm.get('gender')?.valid
+      }"
+    >
+      <option value="">-- Choisir --</option>
+      <option value="man">Homme</option>
+      <option value="woman">Femme</option>
+    </select>
+    <div class="invalid-feedback">
+      <small>Genre requis</small>
+    </div>
+  </div>
+
+  <!-- ROLE -->
+  <div class="mb-3">
+    <label for="role" class="form-label">Rôle</label>
+    <select
+      class="form-select"
+      id="role"
+      formControlName="role"
+      [ngClass]="{
+        'is-invalid':
+          registerForm.get('role')?.invalid &&
+          (registerForm.get('role')?.touched || submitted),
+        'is-valid': registerForm.get('role')?.valid
+      }"
+    >
+      <option value="">-- Choisir --</option>
+      <option value="user">Joueur</option>
+      <option value="organiser">Organisateur</option>
+    </select>
+    <div class="invalid-feedback">
+      <small>Rôle requis</small>
+    </div>
+  </div>
+
+  <!-- BIRTHDAY -->
+  <div class="mb-3">
+    <label for="birthday" class="form-label">Date de naissance</label>
+    <input
+      type="date"
+      class="form-control"
+      id="birthday"
+      formControlName="birthday"
+      [ngClass]="{
+        'is-invalid':
+          registerForm.get('birthday')?.invalid &&
+          (registerForm.get('birthday')?.touched || submitted),
+        'is-valid': registerForm.get('birthday')?.valid
+      }"
+    />
+    <div class="invalid-feedback">
+      <small>Date de naissance requise</small>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success">S'inscrire</button>
 </form>

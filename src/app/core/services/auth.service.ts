@@ -49,4 +49,9 @@ export class AuthService implements OnInit {
   register(data: any) {
     return this.httpclient.post(`${this.uri}/users/register`, data);
   }
+
+  logout(): void {
+    this.localStorageService.remove('accessToken');
+    this.accessToken = undefined;
+  }
 }
