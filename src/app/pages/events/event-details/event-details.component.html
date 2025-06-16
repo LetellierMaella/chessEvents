@@ -1,5 +1,9 @@
 <div class="container mt-5">
-  <div class="card shadow p-4">
+  <div
+    class="card shadow p-4"
+    *ngIf="event; else notFound"
+    class="container mt-5"
+  >
     <h2 class="mb-3">{{ event?.name }}</h2>
     <p class="text-muted">
       {{ event?.location }} — {{ event?.date | date : "longDate" }}
@@ -19,4 +23,9 @@
       </button>
     </div>
   </div>
+  <ng-template #notFound>
+    <div class="container mt-5">
+      <p class="text-danger">Tournoi introuvable.</p>
+    </div>
+  </ng-template>
 </div>

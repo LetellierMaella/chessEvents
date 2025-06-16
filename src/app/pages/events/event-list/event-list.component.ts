@@ -28,18 +28,21 @@ export class EventListComponent {
         name: 'Open de Bruxelles',
         location: 'Bruxelles',
         date: '2025-07-12',
+        description: 'Tournoi rapide 10+5 ouvert à tous les niveaux.',
       },
       {
         id: 2,
         name: 'Tournoi Namur Juniors',
         location: 'Namur',
         date: '2025-08-05',
+        description: 'Réservé aux moins de 18 ans. 5 rondes en cadence lente.',
       },
       {
         id: 3,
         name: 'Championnat Wallonie',
         location: 'Liège',
         date: '2025-09-15',
+        description: 'Tournoi homologué FIDE sur deux jours.',
       },
     ];
 
