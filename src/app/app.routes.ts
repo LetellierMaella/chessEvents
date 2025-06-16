@@ -10,6 +10,7 @@ import { DashboardComponent } from './pages/organizer/dashboard/dashboard.compon
 import { EventCrudComponent } from './pages/organizer/event-crud/event-crud.component';
 import { PlayerListComponent } from './pages/organizer/player-list/player-list.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
+import { OrganizerGuard } from './core/guards/organizer.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,19 @@ export const routes: Routes = [
   { path: 'events/:id/join', component: JoinEventComponent },
 
   // Organizer (private)
-  { path: 'organizer/dashboard', component: DashboardComponent },
-  { path: 'organizer/events', component: EventCrudComponent },
-  { path: 'organizer/events/:id/players', component: PlayerListComponent },
+  {
+    path: 'organizer/dashboard',
+    component: DashboardComponent,
+    canActivate: [OrganizerGuard],
+  },
+  {
+    path: 'organizer/event-crud',
+    component: EventCrudComponent,
+    canActivate: [OrganizerGuard],
+  },
+  {
+    path: 'organizer/events/:id/players',
+    component: PlayerListComponent,
+    canActivate: [OrganizerGuard],
+  },
 ];

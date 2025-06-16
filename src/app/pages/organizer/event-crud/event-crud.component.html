@@ -1,1 +1,104 @@
-<p>event-crud works!</p>
+<div class="container mt-5">
+  <h2>{{ eventId ? "Modifier un tournoi" : "Créer un tournoi" }}</h2>
+
+  <form [formGroup]="eventForm" (ngSubmit)="save()" class="mt-4">
+    <div class="mb-3">
+      <label for="label" class="form-label">Nom</label>
+      <input
+        id="label"
+        type="text"
+        class="form-control"
+        formControlName="label"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input
+        id="date"
+        type="date"
+        class="form-control"
+        formControlName="date"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="maxParticipants" class="form-label"
+        >Nombre maximum de participants</label
+      >
+      <input
+        id="maxParticipants"
+        type="number"
+        class="form-control"
+        formControlName="maxParticipants"
+        min="1"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="gender" class="form-label">Catégorie</label>
+      <select id="gender" class="form-select" formControlName="gender">
+        <option value="man">Hommes</option>
+        <option value="woman">Femmes</option>
+      </select>
+    </div>
+
+    <fieldset class="border p-3 mb-3">
+      <legend class="w-auto px-2">Adresse</legend>
+
+      <div class="mb-3">
+        <label for="number" class="form-label">Numéro</label>
+        <input
+          id="number"
+          type="text"
+          class="form-control"
+          formControlName="number"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="street" class="form-label">Rue</label>
+        <input
+          id="street"
+          type="text"
+          class="form-control"
+          formControlName="street"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="zip" class="form-label">Code postal</label>
+        <input
+          id="zip"
+          type="text"
+          class="form-control"
+          formControlName="zip"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="city" class="form-label">Ville</label>
+        <input
+          id="city"
+          type="text"
+          class="form-control"
+          formControlName="city"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="country" class="form-label">Pays</label>
+        <input
+          id="country"
+          type="text"
+          class="form-control"
+          formControlName="country"
+        />
+      </div>
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">
+      {{ eventId ? "Mettre à jour" : "Créer le tournoi" }}
+    </button>
+  </form>
+</div>

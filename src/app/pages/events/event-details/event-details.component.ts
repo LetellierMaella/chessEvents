@@ -4,9 +4,11 @@ import { ChessEvent } from '../../../models/chess-event.model';
 import { AuthService } from '../../../core/services/auth.service';
 import { EventsService } from '../../../services/events.service';
 import { CommonModule } from '@angular/common';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-event-details',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './event-details.component.html',
   styleUrls: ['./event-details.component.scss'],
@@ -14,6 +16,7 @@ import { CommonModule } from '@angular/common';
 export class EventDetailsComponent implements OnInit {
   eventId!: number;
   event?: ChessEvent;
+  error: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,33 +28,15 @@ export class EventDetailsComponent implements OnInit {
   async ngOnInit() {
     this.eventId = Number(this.route.snapshot.paramMap.get('id'));
 
-    // simulation test
-    const allEvents: ChessEvent[] = [
-      {
-        id: 1,
-        name: 'Open de Bruxelles',
-        location: 'Bruxelles',
-        date: '2025-07-12',
-        description: 'Tournoi rapide 10+5 ouvert à tous les niveaux.',
-      },
-      {
-        id: 2,
-        name: 'Tournoi Namur Juniors',
-        location: 'Namur',
-        date: '2025-08-05',
-        description: 'Réservé aux moins de 18 ans. 5 rondes en cadence lente.',
-      },
-      {
-        id: 3,
-        name: 'Championnat Wallonie',
-        location: 'Liège',
-        date: '2025-09-15',
-        description: 'Tournoi homologué FIDE sur deux jours.',
-      },
-      // les 3 objets comme ci-dessus
-    ];
-
-    this.event = allEvents.find((e) => e.id === this.eventId);
+    try {
+      const data = await firstValueFrom(
+        this.eventsService.getById(this.eventId)
+      );
+      this.event = data as ChessEvent;
+    } catch (err) {
+      this.error = 'Tournoi introuvable ou erreur serveur.';
+      console.error(err);
+    }
   }
 
   handleJoin() {

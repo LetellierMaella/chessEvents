@@ -38,11 +38,23 @@ export class LoginComponent implements OnInit {
   async login() {
     this.submitted = true;
     const { email, password } = this.loginForm.value;
-    let response;
+
     try {
-      await firstValueFrom(this.authService.login(email, password));
-      // REDIRECT SURT LA PAGE home
-      this.router.navigateByUrl('');
+      const response = await firstValueFrom(
+        this.authService.login(email, password)
+      );
+
+      // 🔓 Décoder le token pour obtenir le rôle
+      const token = response.access_token;
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const role = payload.role;
+
+      // ✅ Redirection conditionnelle
+      if (role === 'organiser') {
+        this.router.navigateByUrl('/organizer/dashboard');
+      } else {
+        this.router.navigateByUrl('/'); // Page d’accueil pour joueur
+      }
     } catch (error) {
       alert('Login ou mot de passe invalide !');
     }

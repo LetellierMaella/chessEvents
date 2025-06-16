@@ -1,1 +1,44 @@
-<p>dashboard works!</p>
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h2>Bienvenue sur votre espace organisateur</h2>
+    <p class="text-muted">Gérez vos tournois d’échecs facilement</p>
+  </div>
+
+  <div class="text-end mb-3">
+    <button class="btn btn-success" (click)="goToCreate()">
+      ➕ Créer un tournoi
+    </button>
+  </div>
+
+  <div *ngIf="events.length > 0; else noEvents">
+    <div *ngFor="let event of events" class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ event.label }}</h5>
+        <p class="card-text text-muted">
+          📍 {{ event.address?.city }}, {{ event.address?.country }} — 📅
+          {{ event.date | date : "longDate" }}
+        </p>
+        <div class="d-flex justify-content-end gap-2">
+          <button
+            class="btn btn-outline-primary btn-sm"
+            (click)="editEvent(event.id)"
+          >
+            Modifier
+          </button>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="viewPlayers(event.id)"
+          >
+            Joueurs inscrits
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noEvents>
+    <div class="alert alert-info text-center">
+      Aucun tournoi créé pour le moment.
+    </div>
+  </ng-template>
+</div>

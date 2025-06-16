@@ -5,8 +5,10 @@
     <div class="col-md-6 col-lg-4 mb-4" *ngFor="let event of events">
       <div class="card h-100 shadow-sm">
         <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ event.name }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ event.location }}</h6>
+          <h5 class="card-title">{{ event.label }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ event.address?.city }}, {{ event.address?.country }}
+          </h6>
           <p class="card-text">
             <strong>Date :</strong> {{ event.date | date : "longDate" }}
           </p>

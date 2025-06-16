@@ -7,7 +7,13 @@
 
   <a class="nav-link" [routerLink]="['/events']">Tournois</a>
 
-  <a class="nav-link" [routerLink]="['/organizer/dashboard']">Organisateur</a>
+  <a
+    class="nav-link"
+    *ngIf="isOrganiser"
+    [routerLink]="['/organizer/dashboard']"
+  >
+    Organisateur
+  </a>
 </nav>
 
 <div class="container">

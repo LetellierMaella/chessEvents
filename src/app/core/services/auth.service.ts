@@ -54,4 +54,16 @@ export class AuthService implements OnInit {
     this.localStorageService.remove('accessToken');
     this.accessToken = undefined;
   }
+
+  getUserRole(): string | null {
+    const token = this.accessToken;
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role || null;
+    } catch {
+      return null;
+    }
+  }
 }

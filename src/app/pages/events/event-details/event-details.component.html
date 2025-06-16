@@ -1,31 +1,24 @@
-<div class="container mt-5">
-  <div
-    class="card shadow p-4"
-    *ngIf="event; else notFound"
-    class="container mt-5"
-  >
-    <h2 class="mb-3">{{ event?.name }}</h2>
-    <p class="text-muted">
-      {{ event?.location }} — {{ event?.date | date : "longDate" }}
-    </p>
-
-    <p>
-      <strong>Description :</strong><br />
-      {{
-        event?.description ||
-          "Tournoi régional d’échecs. Ouvert à tous les niveaux."
-      }}
-    </p>
-
-    <div class="mt-4 text-end">
-      <button class="btn btn-primary" (click)="handleJoin()">
-        S’inscrire au tournoi
-      </button>
-    </div>
+<div class="container mt-5" *ngIf="event; else loadingOrError">
+  <h2 class="mb-3">{{ event.label }}</h2>
+  <p class="text-muted">
+    {{ event.address.city }} — {{ event.date | date : "longDate" }}
+  </p>
+  <p><strong>Type :</strong> {{ event.type }}</p>
+  <p>
+    <strong>Adresse :</strong><br />
+    {{ event.address.street }}, {{ event.address.zipCode }}
+    {{ event.address.city }}<br />
+    {{ event.address.country }}
+  </p>
+  <p>
+    {{ event.description || "Aucune description fournie." }}
+  </p>
+  <div class="mt-4">
+    <button class="btn btn-primary" (click)="handleJoin()">S'inscrire</button>
   </div>
-  <ng-template #notFound>
-    <div class="container mt-5">
-      <p class="text-danger">Tournoi introuvable.</p>
-    </div>
-  </ng-template>
 </div>
+
+<ng-template #loadingOrError>
+  <div class="alert alert-warning" *ngIf="error">{{ error }}</div>
+  <div *ngIf="!error">Chargement...</div>
+</ng-template>
