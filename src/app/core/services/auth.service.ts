@@ -45,4 +45,8 @@ export class AuthService implements OnInit {
   isLoggedIn(): boolean {
     return !!this.accessToken;
   }
+
+  register(data: any) {
+    return this.httpclient.post(`${this.uri}/users/register`, data);
+  }
 }

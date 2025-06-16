@@ -1,1 +1,48 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>Email</label>
+      <input type="email" class="form-control" formControlName="email" />
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label>Mot de passe</label>
+      <input type="password" class="form-control" formControlName="password" />
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label>Prénom</label>
+      <input type="text" class="form-control" formControlName="firstname" />
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label>Nom</label>
+      <input type="text" class="form-control" formControlName="lastname" />
+    </div>
+
+    <div class="mb-3">
+      <label for="gender">Genre</label>
+      <select class="form-select" formControlName="gender" id="gender">
+        <option value="">-- Choisir --</option>
+        <option value="man">Homme</option>
+        <option value="woman">Femme</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="role">Rôle</label>
+      <select class="form-select" formControlName="role" id="role">
+        <option value="">-- Choisir --</option>
+        <option value="user">Joueur</option>
+        <option value="organiser">Organisateur</option>
+      </select>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label>Date de naissance</label>
+      <input type="date" class="form-control" formControlName="birthday" />
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success mt-3">S'inscrire</button>
+</form>

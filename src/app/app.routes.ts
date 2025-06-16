@@ -9,9 +9,14 @@ import { JoinEventComponent } from './pages/events/join-event/join-event.compone
 import { DashboardComponent } from './pages/organizer/dashboard/dashboard.component';
 import { EventCrudComponent } from './pages/organizer/event-crud/event-crud.component';
 import { PlayerListComponent } from './pages/organizer/player-list/player-list.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: 'auth',
+    component: AuthPageComponent,
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
