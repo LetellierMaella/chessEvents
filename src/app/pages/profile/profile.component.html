@@ -1,13 +1,22 @@
 <div class="container mt-5">
   <div class="card shadow p-4">
-    <h2 class="mb-4">Mon profil</h2>
-
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <strong>Prénom :</strong> {{ user?.firstname }}
+    <div class="d-flex align-items-center mb-4">
+      <img
+        src="assets/images/default-avatar.jpg"
+        alt="avatar"
+        class="rounded-circle me-4"
+        width="80"
+        height="80"
+      />
+      <div>
+        <h3 class="mb-0">{{ user?.firstname }} {{ user?.lastname }}</h3>
+        <small class="text-muted">{{
+          user?.role === "user" ? "Joueur" : "Organisateur"
+        }}</small>
       </div>
-      <div class="col-md-6"><strong>Nom :</strong> {{ user?.lastname }}</div>
     </div>
+
+    <hr />
 
     <div class="row mb-3">
       <div class="col-md-6"><strong>Email :</strong> {{ user?.email }}</div>
@@ -24,14 +33,42 @@
       </div>
       <div class="col-md-6">
         <strong>Rôle :</strong>
-        {{ user?.role === "user" ? "Joueur" : user?.role }}
+        {{ user?.role === "user" ? "Joueur" : "Organisateur" }}
       </div>
     </div>
 
-    <div class="text-end mt-4">
-      <button class="btn btn-outline-secondary me-2" (click)="logout()">
+    <div class="text-end mb-3">
+      <button class="btn btn-outline-secondary" (click)="logout()">
         Se déconnecter
       </button>
     </div>
+  </div>
+
+  <div class="card shadow p-4 mt-4">
+    <h4 class="mb-3">Mes tournois</h4>
+    <ul *ngIf="tournaments.length > 0; else noTournaments" class="list-group">
+      <li
+        *ngFor="let event of tournaments"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <strong>{{ event.name }}</strong
+          ><br />
+          <small class="text-muted">{{ event.date | date : "longDate" }}</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge bg-primary">#{{ event.id }}</span>
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="goToEvent(event.id)"
+          >
+            Détails
+          </button>
+        </div>
+      </li>
+    </ul>
+    <ng-template #noTournaments>
+      <p class="text-muted">Aucun tournoi inscrit pour le moment.</p>
+    </ng-template>
   </div>
 </div>
