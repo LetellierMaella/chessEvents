@@ -21,6 +21,10 @@ export class EventsService {
     return this.httpClient.get(`${this.uri}/${id}`);
   }
 
+  getMyEvents() {
+    return this.httpClient.get(`${this.uri}/me`);
+  }
+
   create(data: any) {
     return this.httpClient.post(this.uri, data);
   }

@@ -26,9 +26,7 @@ export class EventListComponent {
       const data = await firstValueFrom(this.eventsService.getAll());
       this.events = data as ChessEvent[];
     } catch (error) {
-      console.log(
-        'erreur lors de la connexion aux events, fallback sur les données statiques'
-      );
+      console.log('erreur lors de la connexion aux events');
       this.events = [];
     }
   }

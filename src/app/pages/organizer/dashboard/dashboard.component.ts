@@ -22,10 +22,10 @@ export class DashboardComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      //const data = await firstValueFrom(this.eventsService.getMyEvents());
-      //this.events = data as ChessEvent[];
+      const data = await firstValueFrom(this.eventsService.getMyEvents());
+      this.events = data as ChessEvent[];
     } catch {
-      this.events = []; // fallback vide
+      this.events = [];
     }
   }
 
