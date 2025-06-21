@@ -17,6 +17,7 @@ export class EventDetailsComponent implements OnInit {
   eventId!: number;
   event?: ChessEvent;
   error: string | null = null;
+  canJoin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,19 @@ export class EventDetailsComponent implements OnInit {
         this.eventsService.getById(this.eventId)
       );
       this.event = data as ChessEvent;
+
+      const user = this.authService.getUser();
+      console.log('USER:', user);
+      console.log('EVENT:', this.event);
+
+      const userGender = user?.gender;
+
+      this.canJoin =
+        !!user &&
+        user.role === 'user' &&
+        (this.event.gender === 'all' || this.event.gender === userGender);
+
+      console.log('CAN JOIN ?', this.canJoin);
     } catch (err) {
       this.error = 'Tournoi introuvable ou erreur serveur.';
       console.error(err);
@@ -54,7 +68,7 @@ export class EventDetailsComponent implements OnInit {
       case 'woman':
         return 'Femmes';
       default:
-        return 'Non spécifié';
+        return 'Mixte';
     }
   }
 }

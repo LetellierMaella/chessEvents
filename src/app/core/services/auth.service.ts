@@ -45,8 +45,14 @@ export class AuthService implements OnInit {
   getUser(): any {
     const token = this.getAccessToken();
     if (!token) return null;
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.user;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      // ✅ Retourne directement le payload si les infos utilisateur sont dedans
+      return payload.user ?? payload;
+    } catch (e) {
+      return null;
+    }
   }
 
   isLoggedIn(): boolean {

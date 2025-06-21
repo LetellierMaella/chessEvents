@@ -30,9 +30,9 @@ export class JoinEventComponent implements OnInit {
 
   async ngOnInit() {
     const user = this.authService.getUser();
+    console.log('Utilisateur détecté :', user);
     this.userRole = user?.role ?? '';
 
-    // 🚫 Redirection si organisateur
     if (this.userRole === 'organiser') {
       alert(
         "En tant qu'organisateur, vous ne pouvez pas vous inscrire à un tournoi."
@@ -52,6 +52,20 @@ export class JoinEventComponent implements OnInit {
       this.alreadyRegistered = !!this.event.participants?.some(
         (p: any) => p.id === user?.id
       );
+
+      // ⚠️ Vérifie la compatibilité du genre
+      const tournamentGender = this.event.gender;
+      const userGender = user?.gender;
+
+      if (
+        tournamentGender !== 'all' &&
+        userGender &&
+        tournamentGender !== userGender
+      ) {
+        this.registrationError = `Ce tournoi est réservé aux ${
+          tournamentGender === 'man' ? 'hommes' : 'femmes'
+        }.`;
+      }
     } catch (err) {
       this.registrationError =
         'Erreur lors du chargement des informations du tournoi.';

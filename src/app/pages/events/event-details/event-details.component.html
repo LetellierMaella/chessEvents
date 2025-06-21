@@ -17,8 +17,11 @@
     {{ event.description || "Aucune description fournie." }}
   </p>
 
-  <div class="mt-4">
+  <div class="mt-4" *ngIf="canJoin">
     <button class="btn btn-primary" (click)="handleJoin()">S'inscrire</button>
+  </div>
+  <div *ngIf="!canJoin" class="alert alert-warning">
+    🚫 Vous ne pouvez pas vous inscrire à ce tournoi.
   </div>
 </div>
 

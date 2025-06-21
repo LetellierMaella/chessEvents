@@ -12,8 +12,9 @@
         🧑‍🤝‍🧑 Catégorie : {{ event.gender === "man" ? "Hommes" : "Femmes" }}
       </p>
 
+      <!-- ✅ Bouton visible seulement si pas déjà inscrit et pas d'erreur -->
       <button
-        *ngIf="!alreadyRegistered"
+        *ngIf="!alreadyRegistered && !registrationError"
         class="btn btn-success"
         (click)="join()"
       >
@@ -25,10 +26,6 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="alert alert-warning mt-5" *ngIf="userRole !== 'user'">
-  🚫 Seuls les joueurs peuvent s’inscrire à un tournoi.
 </div>
 
 <div *ngIf="registrationError" class="alert alert-danger">
