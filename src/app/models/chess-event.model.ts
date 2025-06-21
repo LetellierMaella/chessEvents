@@ -12,6 +12,8 @@ export interface ChessEvent {
   date: string;
   type: string;
   description?: string;
+  maxParticipants: number;
   address: Address;
-  organiser?: any; // peut être un ID ou un User selon les cas
+  organiser: number | { id: number; name?: string };
+  participants?: { id: number; name?: string }[];
 }

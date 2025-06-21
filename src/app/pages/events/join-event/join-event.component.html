@@ -1,35 +1,36 @@
-<div class="container mt-5">
-  <div class="card shadow">
+<div class="container mt-5" *ngIf="event">
+  <h2>Inscription au tournoi</h2>
+
+  <div class="card my-4 shadow-sm">
     <div class="card-body">
-      <h3 class="card-title mb-3 text-center">Inscription au tournoi</h3>
+      <h4 class="card-title">{{ event.label }}</h4>
+      <p class="card-text">
+        📍 {{ event.address?.city }}, {{ event.address?.country }}<br />
+        📅 {{ event.date | date : "longDate" }}<br />
+        👥 Participants inscrits : {{ event.participants?.length || 0 }} /
+        {{ event.maxParticipants }}<br />
+        🧑‍🤝‍🧑 Catégorie : {{ event.type === "man" ? "Hommes" : "Femmes" }}
+      </p>
 
-      <div *ngIf="event">
-        <h5 class="text-primary">{{ event.label }}</h5>
-        <p class="text-muted">
-          📍 {{ event.address?.city }}, {{ event.address?.country }}<br />
-          📅 {{ event.date | date : "longDate" }}<br />
-          👥 Limite de participants : {{ event.maxParticipants }}<br />
-          ♀️ Catégorie : {{ event.gender === "woman" ? "Femmes" : "Hommes" }}
-        </p>
+      <button
+        *ngIf="!alreadyRegistered"
+        class="btn btn-success"
+        (click)="register()"
+      >
+        M'inscrire au tournoi
+      </button>
 
-        <div class="alert alert-info" *ngIf="alreadyJoined">
-          Vous êtes déjà inscrit à ce tournoi.
-        </div>
-
-        <div class="text-center" *ngIf="!alreadyJoined">
-          <button
-            class="btn btn-success"
-            (click)="register()"
-            [disabled]="loading"
-          >
-            ✔️ Confirmer mon inscription
-          </button>
-        </div>
-      </div>
-
-      <div *ngIf="!event" class="alert alert-warning text-center mt-3">
-        Chargement des informations du tournoi...
+      <div *ngIf="alreadyRegistered" class="alert alert-info mt-3">
+        ✅ Vous êtes déjà inscrit à ce tournoi.
       </div>
     </div>
   </div>
+</div>
+
+<div class="alert alert-warning mt-5" *ngIf="userRole !== 'user'">
+  🚫 Seuls les joueurs peuvent s’inscrire à un tournoi.
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-3">
+  {{ errorMessage }}
 </div>
