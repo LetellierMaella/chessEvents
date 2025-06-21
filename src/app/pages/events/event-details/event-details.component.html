@@ -3,7 +3,10 @@
   <p class="text-muted">
     {{ event.address.city }} — {{ event.date | date : "longDate" }}
   </p>
-  <p><strong>Type :</strong> {{ event.type }}</p>
+
+  <!-- Affichage catégorie -->
+  <p><strong>Catégorie :</strong> {{ formatCategory(event?.gender) }}</p>
+
   <p>
     <strong>Adresse :</strong><br />
     {{ event.address.street }}, {{ event.address.zipCode }}
@@ -13,6 +16,7 @@
   <p>
     {{ event.description || "Aucune description fournie." }}
   </p>
+
   <div class="mt-4">
     <button class="btn btn-primary" (click)="handleJoin()">S'inscrire</button>
   </div>

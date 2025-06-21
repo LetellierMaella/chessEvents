@@ -9,7 +9,7 @@
         📅 {{ event.date | date : "longDate" }}<br />
         👥 Participants inscrits : {{ event.participants?.length || 0 }} /
         {{ event.maxParticipants }}<br />
-        🧑‍🤝‍🧑 Catégorie : {{ event.type === "man" ? "Hommes" : "Femmes" }}
+        🧑‍🤝‍🧑 Catégorie : {{ event.gender === "man" ? "Hommes" : "Femmes" }}
       </p>
 
       <button

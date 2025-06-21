@@ -10,7 +10,7 @@ export interface ChessEvent {
   id: number;
   label: string;
   date: string;
-  type: string;
+  gender: string;
   description?: string;
   maxParticipants: number;
   address: Address;

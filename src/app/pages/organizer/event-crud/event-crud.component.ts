@@ -82,9 +82,9 @@ export class EventCrudComponent implements OnInit {
       maxParticipants: formValues.maxParticipants,
       gender: formValues.gender,
       address: {
-        number: '1', // ou un champ à ajouter si tu veux être complet
+        number: '1',
         street: formValues.street,
-        postalCode: formValues.zip, // <-- clé corrigée
+        postalCode: formValues.zip,
         city: formValues.city,
         country: formValues.country,
       },

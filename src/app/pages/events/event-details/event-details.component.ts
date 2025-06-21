@@ -46,4 +46,15 @@ export class EventDetailsComponent implements OnInit {
       this.router.navigate(['/events', this.eventId, 'join']);
     }
   }
+
+  formatCategory(gender?: string): string {
+    switch (gender) {
+      case 'man':
+        return 'Hommes';
+      case 'woman':
+        return 'Femmes';
+      default:
+        return 'Non spécifié';
+    }
+  }
 }
