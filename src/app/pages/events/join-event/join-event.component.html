@@ -1,1 +1,35 @@
-<p>join-event works!</p>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h3 class="card-title mb-3 text-center">Inscription au tournoi</h3>
+
+      <div *ngIf="event">
+        <h5 class="text-primary">{{ event.label }}</h5>
+        <p class="text-muted">
+          📍 {{ event.address?.city }}, {{ event.address?.country }}<br />
+          📅 {{ event.date | date : "longDate" }}<br />
+          👥 Limite de participants : {{ event.maxParticipants }}<br />
+          ♀️ Catégorie : {{ event.gender === "woman" ? "Femmes" : "Hommes" }}
+        </p>
+
+        <div class="alert alert-info" *ngIf="alreadyJoined">
+          Vous êtes déjà inscrit à ce tournoi.
+        </div>
+
+        <div class="text-center" *ngIf="!alreadyJoined">
+          <button
+            class="btn btn-success"
+            (click)="register()"
+            [disabled]="loading"
+          >
+            ✔️ Confirmer mon inscription
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!event" class="alert alert-warning text-center mt-3">
+        Chargement des informations du tournoi...
+      </div>
+    </div>
+  </div>
+</div>
