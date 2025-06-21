@@ -46,4 +46,8 @@ export class EventsService {
   getParticipants(eventId: number) {
     return this.httpClient.get(`${this.uri}/${eventId}/participants`);
   }
+
+  unregisterFromEvent(eventId: number): Observable<any> {
+    return this.httpClient.post(`${this.uri}/${eventId}/unregister`, {});
+  }
 }

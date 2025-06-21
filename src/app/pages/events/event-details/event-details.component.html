@@ -4,7 +4,6 @@
     {{ event.address.city }} — {{ event.date | date : "longDate" }}
   </p>
 
-  <!-- Affichage catégorie -->
   <p><strong>Catégorie :</strong> {{ formatCategory(event?.gender) }}</p>
 
   <p>
@@ -13,14 +12,20 @@
     {{ event.address.city }}<br />
     {{ event.address.country }}
   </p>
-  <p>
-    {{ event.description || "Aucune description fournie." }}
-  </p>
 
-  <div class="mt-4" *ngIf="canJoin">
+  <p>{{ event.description || "Aucune description fournie." }}</p>
+
+  <div class="mt-4" *ngIf="alreadyRegistered">
+    <button class="btn btn-danger" (click)="handleUnregister()">
+      Se désinscrire
+    </button>
+  </div>
+
+  <div class="mt-4" *ngIf="!alreadyRegistered && canJoin">
     <button class="btn btn-primary" (click)="handleJoin()">S'inscrire</button>
   </div>
-  <div *ngIf="!canJoin" class="alert alert-warning">
+
+  <div *ngIf="!canJoin && !alreadyRegistered" class="alert alert-warning mt-3">
     🚫 Vous ne pouvez pas vous inscrire à ce tournoi.
   </div>
 </div>

@@ -18,6 +18,7 @@ export class EventDetailsComponent implements OnInit {
   event?: ChessEvent;
   error: string | null = null;
   canJoin: boolean = false;
+  alreadyRegistered: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,17 +37,17 @@ export class EventDetailsComponent implements OnInit {
       this.event = data as ChessEvent;
 
       const user = this.authService.getUser();
-      console.log('USER:', user);
-      console.log('EVENT:', this.event);
-
       const userGender = user?.gender;
+
+      this.alreadyRegistered = !!this.event.participants?.some(
+        (p: any) => p.id === user?.id
+      );
 
       this.canJoin =
         !!user &&
         user.role === 'user' &&
+        !this.alreadyRegistered &&
         (this.event.gender === 'all' || this.event.gender === userGender);
-
-      console.log('CAN JOIN ?', this.canJoin);
     } catch (err) {
       this.error = 'Tournoi introuvable ou erreur serveur.';
       console.error(err);
@@ -58,6 +59,24 @@ export class EventDetailsComponent implements OnInit {
       this.router.navigateByUrl('/auth');
     } else {
       this.router.navigate(['/events', this.eventId, 'join']);
+    }
+  }
+
+  async handleUnregister() {
+    const confirmed = confirm(
+      'Souhaitez-vous vous désinscrire de ce tournoi ?'
+    );
+    if (!confirmed) return;
+
+    try {
+      await firstValueFrom(
+        this.eventsService.unregisterFromEvent(this.eventId)
+      );
+      this.alreadyRegistered = false;
+      alert('Vous avez été désinscrit.');
+      this.router.navigateByUrl('/profile');
+    } catch (err) {
+      alert('Erreur lors de la désinscription.');
     }
   }
 
