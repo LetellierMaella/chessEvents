@@ -16,9 +16,10 @@ import { CommonModule } from '@angular/common';
 export class JoinEventComponent implements OnInit {
   eventId!: number;
   event!: ChessEvent;
-  userRole: string | null = null;
-  alreadyRegistered = false;
-  errorMessage: string | null = null;
+  alreadyRegistered: boolean = false;
+  registrationSuccess: boolean = false;
+  registrationError: string = '';
+  userRole: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -27,40 +28,42 @@ export class JoinEventComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit() {
     const user = this.authService.getUser();
-    this.userRole = user?.role || null;
+    this.userRole = user?.role ?? '';
 
-    if (this.userRole !== 'user') {
-      alert("Seuls les joueurs peuvent s'inscrire à un tournoi.");
-      this.router.navigateByUrl('');
+    // 🚫 Redirection si organisateur
+    if (this.userRole === 'organiser') {
+      alert(
+        "En tant qu'organisateur, vous ne pouvez pas vous inscrire à un tournoi."
+      );
+      this.router.navigateByUrl('/organizer/dashboard');
       return;
     }
 
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam) {
-      this.eventId = Number(idParam);
-      try {
-        const event = await firstValueFrom(
-          this.eventsService.getById(this.eventId)
-        );
-        this.event = event as ChessEvent;
-        this.alreadyRegistered = !!this.event.participants?.some(
-          (p: any) => p.id === user?.id
-        );
-      } catch (err) {
-        this.errorMessage = 'Erreur lors du chargement du tournoi.';
-      }
+    this.eventId = Number(this.route.snapshot.paramMap.get('id'));
+
+    try {
+      const event = await firstValueFrom(
+        this.eventsService.getById(this.eventId)
+      );
+      this.event = event as ChessEvent;
+
+      this.alreadyRegistered = !!this.event.participants?.some(
+        (p: any) => p.id === user?.id
+      );
+    } catch (err) {
+      this.registrationError =
+        'Erreur lors du chargement des informations du tournoi.';
     }
   }
 
-  async register() {
+  async join() {
     try {
       await firstValueFrom(this.eventsService.registerToEvent(this.eventId));
-      alert('Inscription réussie !');
-      this.router.navigateByUrl('/events');
-    } catch (err: any) {
-      alert("Erreur lors de l'inscription au tournoi.");
+      this.registrationSuccess = true;
+    } catch (err) {
+      this.registrationError = 'Une erreur est survenue lors de l’inscription.';
     }
   }
 }

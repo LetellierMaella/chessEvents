@@ -15,7 +15,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ event.label }}</h5>
         <p class="card-text text-muted">
-          📍 {{ event.address?.city }}, {{ event.address?.country }} — 📅
+          📍 {{ event.address.city }}, {{ event.address.country }} — 📅
           {{ event.date | date : "longDate" }}
         </p>
         <div class="d-flex justify-content-end gap-2">

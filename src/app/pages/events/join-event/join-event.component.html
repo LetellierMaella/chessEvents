@@ -5,7 +5,7 @@
     <div class="card-body">
       <h4 class="card-title">{{ event.label }}</h4>
       <p class="card-text">
-        📍 {{ event.address?.city }}, {{ event.address?.country }}<br />
+        📍 {{ event.address.city }}, {{ event.address.country }}<br />
         📅 {{ event.date | date : "longDate" }}<br />
         👥 Participants inscrits : {{ event.participants?.length || 0 }} /
         {{ event.maxParticipants }}<br />
@@ -15,7 +15,7 @@
       <button
         *ngIf="!alreadyRegistered"
         class="btn btn-success"
-        (click)="register()"
+        (click)="join()"
       >
         M'inscrire au tournoi
       </button>
@@ -31,6 +31,6 @@
   🚫 Seuls les joueurs peuvent s’inscrire à un tournoi.
 </div>
 
-<div *ngIf="errorMessage" class="alert alert-danger mt-3">
-  {{ errorMessage }}
+<div *ngIf="registrationError" class="alert alert-danger">
+  {{ registrationError }}
 </div>
