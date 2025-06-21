@@ -39,8 +39,22 @@ export const routes: Routes = [
     canActivate: [OrganizerGuard],
   },
   {
+    path: 'organizer/event-crud/:id',
+    loadComponent: () =>
+      import('./pages/organizer/event-crud/event-crud.component').then(
+        (m) => m.EventCrudComponent
+      ),
+  },
+  {
     path: 'organizer/events/:id/players',
     component: PlayerListComponent,
     canActivate: [OrganizerGuard],
+  },
+  {
+    path: 'organizer/player-list/:id',
+    loadComponent: () =>
+      import('./pages/organizer/player-list/player-list.component').then(
+        (m) => m.PlayerListComponent
+      ),
   },
 ];

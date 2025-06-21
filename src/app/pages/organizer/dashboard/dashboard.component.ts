@@ -36,6 +36,20 @@ export class DashboardComponent implements OnInit {
   editEvent(id: number) {
     this.router.navigate(['/organizer/event-crud', id]);
   }
+  async deleteEvent(id: number) {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce tournoi ?')) {
+      return;
+    }
+
+    try {
+      await firstValueFrom(this.eventsService.delete(id));
+      // Met à jour la liste après suppression
+      this.events = this.events.filter((e) => e.id !== id);
+    } catch (err) {
+      console.error('Erreur lors de la suppression du tournoi', err);
+      alert('Une erreur est survenue lors de la suppression du tournoi.');
+    }
+  }
 
   viewPlayers(id: number) {
     this.router.navigate(['/organizer/player-list', id]);

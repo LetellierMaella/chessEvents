@@ -26,6 +26,13 @@
             Modifier
           </button>
           <button
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteEvent(event.id)"
+          >
+            Supprimer
+          </button>
+
+          <button
             class="btn btn-outline-secondary btn-sm"
             (click)="viewPlayers(event.id)"
           >

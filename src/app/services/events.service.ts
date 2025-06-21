@@ -32,10 +32,18 @@ export class EventsService {
   }
 
   update(id: number, data: any) {
-    return this.httpClient.patch(`${this.uri}/${id}`, data);
+    return this.httpClient.put(`${this.uri}/${id}`, data);
+  }
+
+  delete(id: number) {
+    return this.httpClient.delete(`${this.uri}/${id}`);
   }
 
   registerToEvent(eventId: number) {
     return this.httpClient.post(`${this.uri}/register`, { eventId });
+  }
+
+  getParticipants(eventId: number) {
+    return this.httpClient.get(`${this.uri}/${eventId}/participants`);
   }
 }
