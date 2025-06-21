@@ -12,4 +12,10 @@ export class UserService {
   getMyProfile() {
     return this.http.get(`${this.uri}/users/my-profile`);
   }
+
+  getMyParticipations() {
+    return this.http.get<any[]>(
+      'http://localhost:3000/events/my-participations'
+    );
+  }
 }

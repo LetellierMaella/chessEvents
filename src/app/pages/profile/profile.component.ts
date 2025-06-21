@@ -25,11 +25,12 @@ export class ProfileComponent implements OnInit {
     try {
       this.user = await this.userService.getMyProfile().toPromise();
 
-      // ⬇️ Tournois simulés pour la démonstration
-      this.tournaments = [
-        { id: 1, name: 'Tournoi de Liège', date: '2025-07-15' },
-        { id: 2, name: 'Open Namur Juniors', date: '2025-08-02' },
-      ];
+      if (this.user?.role === 'user') {
+        this.tournaments =
+          (await this.userService.getMyParticipations().toPromise()) ?? [];
+      } else {
+        this.tournaments = [];
+      }
     } catch (err) {
       this.router.navigateByUrl('/auth');
     }
